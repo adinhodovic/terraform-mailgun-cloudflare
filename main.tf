@@ -4,22 +4,22 @@ resource "mailgunv3_domain" "default" {
   smtp_password = var.smtp_password
 }
 
-resource "cloudflare_record" "domain_mailgun_sending_records" {
-  count   = "3"
+resource "cloudflare_record" "mailgun_sending_records" {
+  count   = 3
   domain  = var.cloudflare_domain
-  name    = "${lookup(mailgunv3_domain.default.sending_records[count.index], "name")}"
-  value   = "${lookup(mailgunv3_domain.default.sending_records[count.index], "value")}"
-  type    = "${lookup(mailgunv3_domain.default.sending_records[count.index], "record_type")}"
+  name    = lookup(mailgunv3_domain.default.sending_records[count.index], "name")
+  value   = lookup(mailgunv3_domain.default.sending_records[count.index], "value")
+  type    = lookup(mailgunv3_domain.default.sending_records[count.index], "record_type")
   ttl     = 1
   proxied = false
 }
 
-resource "cloudflare_record" "domain_mailgun_receiving_records" {
-  count   = "2"
-  domain  = var.domain
-  name    = "${mailgunv3_domain.default.name}"
-  value   = "${lookup(mailgunv3_domain.default.receiving_records[count.index], "value")}"
-  type    = "${lookup(mailgunv3_domain.default.receiving_records[count.index], "record_type")}"
+resource "cloudflare_record" "mailgun_receiving_records" {
+  count   = 2
+  domain  = var.cloudflare_domain
+  name    = mailgunv3_domain.default.name
+  value   = lookup(mailgunv3_domain.default.receiving_records[count.index], "value")
+  type    = lookup(mailgunv3_domain.default.receiving_records[count.index], "record_type")
   ttl     = 1
   proxied = false
 }
