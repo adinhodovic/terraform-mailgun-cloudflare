@@ -1,16 +1,12 @@
-locals {
-  domain = "hodovi.cc"
-}
-
 resource "mailgunv3_domain" "default" {
-  name          = var.domain
+  name          = var.mailgun_domain
   spam_action   = var.spam_action
   smtp_password = var.smtp_password
 }
 
 resource "cloudflare_record" "domain_mailgun_sending_records" {
   count   = "3"
-  domain  = var.domain
+  domain  = var.cloudflare_domain
   name    = "${lookup(mailgunv3_domain.default.sending_records[count.index], "name")}"
   value   = "${lookup(mailgunv3_domain.default.sending_records[count.index], "value")}"
   type    = "${lookup(mailgunv3_domain.default.sending_records[count.index], "record_type")}"

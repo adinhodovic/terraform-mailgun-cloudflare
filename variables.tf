@@ -1,4 +1,8 @@
-variable "domain" {
+variable "cloudflare_domain" {
+  type = string
+}
+
+variable "mailgun_domain" {
   type = string
 }
 
@@ -7,6 +11,6 @@ variable "smtp_password" {
 }
 
 variable "spam_action" {
-  type = string
+  type    = string
   default = "disabled"
 }
