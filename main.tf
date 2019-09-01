@@ -17,7 +17,7 @@ resource "cloudflare_record" "mailgun_sending_records" {
 resource "cloudflare_record" "mailgun_receiving_records" {
   count   = 2
   domain  = var.cloudflare_domain
-  name    = mailgunv3_domain.default.name
+  name    = lookup(mailgunv3_domain.default.sending_records[count.index], "name")
   value   = lookup(mailgunv3_domain.default.receiving_records[count.index], "value")
   type    = lookup(mailgunv3_domain.default.receiving_records[count.index], "record_type")
   ttl     = 1
