@@ -1,4 +1,4 @@
-variable "cloudflare_domain" {
+variable "cloudflare_zone" {
   type = string
 }
 
