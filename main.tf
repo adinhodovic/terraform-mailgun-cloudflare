@@ -1,4 +1,5 @@
 resource "mailgun_domain" "default" {
+  region        = var.region
   name          = var.mailgun_domain
   spam_action   = var.spam_action
   smtp_password = var.smtp_password
