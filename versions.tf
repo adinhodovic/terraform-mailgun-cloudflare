@@ -4,8 +4,9 @@ terraform {
       source = "cloudflare/cloudflare"
     }
     mailgun = {
-      source = "terraform-providers/mailgun"
+      source  = "wgebis/mailgun"
+      version = ">= 0.7"
     }
   }
-  required_version = ">= 0.13"
+  required_version = ">= 1.0"
 }
