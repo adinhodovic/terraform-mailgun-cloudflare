@@ -3,6 +3,10 @@ resource "mailgun_domain" "default" {
   name          = var.mailgun_domain
   spam_action   = var.spam_action
   smtp_password = var.smtp_password
+
+  lifecycle {
+    ignore_changes = ["smtp_password"]
+  }
 }
 
 resource "cloudflare_record" "mailgun_sending_records" {
