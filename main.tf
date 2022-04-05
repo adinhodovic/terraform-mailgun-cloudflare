@@ -5,7 +5,7 @@ resource "mailgun_domain" "default" {
   smtp_password = var.smtp_password
 
   lifecycle {
-    ignore_changes = ["smtp_password"]
+    ignore_changes = [smtp_password]
   }
 }
 
