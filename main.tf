@@ -16,6 +16,7 @@ resource "cloudflare_dns_record" "mailgun_sending_records" {
   content = lookup(mailgun_domain.default.sending_records[count.index], "value")
   type    = lookup(mailgun_domain.default.sending_records[count.index], "record_type")
   proxied = false
+  ttl     = 1
 }
 
 resource "cloudflare_dns_record" "mailgun_receiving_records" {
@@ -26,4 +27,5 @@ resource "cloudflare_dns_record" "mailgun_receiving_records" {
   type     = lookup(mailgun_domain.default.receiving_records[count.index], "record_type")
   priority = lookup(mailgun_domain.default.receiving_records[count.index], "priority")
   proxied  = false
+  ttl      = 1
 }
