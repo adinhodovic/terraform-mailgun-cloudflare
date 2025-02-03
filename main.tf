@@ -9,7 +9,7 @@ resource "mailgun_domain" "default" {
   }
 }
 
-resource "cloudflare_record" "mailgun_sending_records" {
+resource "cloudflare_dns_record" "mailgun_sending_records" {
   count   = 3
   zone_id = var.zone_id
   name    = lookup(mailgun_domain.default.sending_records[count.index], "name")
@@ -18,7 +18,7 @@ resource "cloudflare_record" "mailgun_sending_records" {
   proxied = false
 }
 
-resource "cloudflare_record" "mailgun_receiving_records" {
+resource "cloudflare_dns_record" "mailgun_receiving_records" {
   count    = 2
   zone_id  = var.zone_id
   name     = var.mailgun_domain
