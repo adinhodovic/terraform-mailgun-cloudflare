@@ -5,7 +5,7 @@ terraform {
     }
     mailgun = {
       source  = "wgebis/mailgun"
-      version = ">= 0.7"
+      version = ">= 0.10"
     }
   }
   required_version = ">= 1.0"
