@@ -16,10 +16,10 @@ locals {
     [for record in mailgun_domain.default.sending_records_set : record if record.record_type == "CNAME"],
   )
 
-  receiving_records = concat(
-    [for record in mailgun_domain.default.receiving_records_set : record if record.value == "mxa.mailgun.org"],
-    [for record in mailgun_domain.default.receiving_records_set : record if record.value == "mxb.mailgun.org"],
-  )
+  receiving_records = [
+    for value in sort([for record in mailgun_domain.default.receiving_records_set : record.value]) :
+    one([for record in mailgun_domain.default.receiving_records_set : record if record.value == value])
+  ]
 }
 
 resource "cloudflare_dns_record" "mailgun_sending_records" {
